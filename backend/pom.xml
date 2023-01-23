@@ -4,18 +4,17 @@
 
     <parent>
         <groupId>de.claudioaltamura</groupId>
-        <artifactId>spring.boot.webflux.superheroes</artifactId>
+        <artifactId>spring-boot-webflux-superheroes</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <!--
-        <relativePath/> -->
         <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>spring.boot.webflux.superheroes.backend</artifactId>
+    <artifactId>spring-boot-webflux-superheroes-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>backend</name>
     <description>Spring Boot Webflux Superheroes example - Backend</description>
+
     <dependencies>
         <dependency>
             <groupId>de.claudioaltamura</groupId>
