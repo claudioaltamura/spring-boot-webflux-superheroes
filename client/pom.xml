@@ -18,8 +18,8 @@
     <dependencies>
         <dependency>
             <groupId>de.claudioaltamura</groupId>
-            <artifactId>spring.boot.webflux.superheroes.model</artifactId>
-            <version>0.0.2-SNAPSHOT</version>
+            <artifactId>spring-boot-webflux-superheroes-model</artifactId>
+            <version>0.0.3-SNAPSHOT</version>
         </dependency>
 
         <dependency>
