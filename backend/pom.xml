@@ -15,11 +15,21 @@
     <name>backend</name>
     <description>Spring Boot Webflux Superheroes example - Backend</description>
 
+    <properties>
+        <superheroes.model.verion>0.0.4-SNAPSHOT</superheroes.model.verion>
+        <okhttp.version>4.10.0</okhttp.version>
+    </properties>
+
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>de.claudioaltamura</groupId>
             <artifactId>spring-boot-webflux-superheroes-model</artifactId>
-            <version>0.0.4-SNAPSHOT</version>
+            <version>${superheroes.model.verion}</version>
         </dependency>
 
         <dependency>
