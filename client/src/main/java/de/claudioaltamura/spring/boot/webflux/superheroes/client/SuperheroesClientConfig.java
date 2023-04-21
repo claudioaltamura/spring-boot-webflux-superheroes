@@ -16,10 +16,11 @@ import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 
 import java.util.List;
+import java.util.Map;
 
 @Configuration
 @Slf4j
-public class SuperheroesClientAppConfig {
+public class SuperheroesClientConfig {
     @Value("${superHeroesServerUrl}")
     private String superHeroesServerUrl;
 
@@ -47,9 +48,7 @@ public class SuperheroesClientAppConfig {
         return (clientRequest, next) -> {
             log.info("Request: {} {}", clientRequest.method(), clientRequest.url());
             log.info("--- Http Headers: ---");
-            clientRequest.headers().forEach(this::logHeader);
-            log.info("--- Http Cookies: ---");
-            clientRequest.cookies().forEach(this::logHeader);
+            clientRequest.headers().entrySet().forEach(this::logHeader);
             return next.exchange(clientRequest);
         };
     }
@@ -57,13 +56,17 @@ public class SuperheroesClientAppConfig {
     private ExchangeFilterFunction logResponse() {
         return ExchangeFilterFunction.ofResponseProcessor(clientResponse -> {
             log.info("Response: {}", clientResponse.statusCode());
-            clientResponse.headers().asHttpHeaders()
-                    .forEach((name, values) -> values.forEach(value -> log.info("{}={}", name, value)));
+            clientResponse.headers().asHttpHeaders().entrySet().forEach(this::logResponse);
             return Mono.just(clientResponse);
         });
     }
 
-    private void logHeader(String name, List<String> values) {
-        values.forEach(value -> log.info("{}={}", name, value));
+    private void logHeader(Map.Entry<String, List<String>> entry) {
+        log.info("{}={}", entry.getKey(), entry.getValue());
     }
+
+    private void logResponse(Map.Entry<String, List<String>> entry) {
+        log.info("{}={}", entry.getKey(), entry.getValue());
+    }
+
 }
