@@ -1,8 +1,15 @@
 language: java
 
 jdk:
-  - openjdk11
+  - openjdk17
 
-sudo: false # faster builds
+cache:
+  directories:
+    - $HOME/.m2
 
-script: "./mvnw clean package"
+sudo: false
+
+script:
+  - java --version
+  - ./mvnw clean install
+  - ./mvnw test
