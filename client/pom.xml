@@ -15,11 +15,21 @@
     <name>client</name>
     <description>Spring Boot Webflux Superheroes example - Client </description>
 
+    <properties>
+        <superheroes.model.verion>0.0.4-SNAPSHOT</superheroes.model.verion>
+        <okhttp.version>4.10.0</okhttp.version>
+    </properties>
+
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>de.claudioaltamura</groupId>
             <artifactId>spring-boot-webflux-superheroes-model</artifactId>
-            <version>0.0.4-SNAPSHOT</version>
+            <version>${superheroes.model.verion}</version>
         </dependency>
 
         <dependency>
@@ -34,6 +44,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>mockwebserver</artifactId>
+            <version>${okhttp.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
