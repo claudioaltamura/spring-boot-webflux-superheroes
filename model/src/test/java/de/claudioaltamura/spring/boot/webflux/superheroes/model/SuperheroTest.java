@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SuperheroTest {
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
     @Test
     void testSerialize() throws JsonProcessingException {
         var superhero = new Superhero(1L, "Superhero");
