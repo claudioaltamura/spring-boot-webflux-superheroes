@@ -1,15 +1,15 @@
 package de.claudioaltamura.spring.boot.webflux.superheroes.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
+
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 @ToString
 public class Superhero {
-    private  Long id;
+    private Long id;
     private String name;
 }
