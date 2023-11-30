@@ -11,3 +11,5 @@ buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
 /.idea/.gitignore
 /.idea/
+/spring-boot-webflux-superheroes.iml
+/model/spring-boot-webflux-superheroes-model.iml
