@@ -11,24 +11,25 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Slf4j
 public class SuperheroesClient {
 
-    public static final String SUPERHEROES_ID_URI = "/superheroes/{id}";
+  public static final String SUPERHEROES_ID_URI = "/superheroes/{id}";
 
-    private final WebClient webClient;
+  private final WebClient webClient;
 
-    public Superhero getSuperheroBlocking(long id) {
-        return webClient.get()
-                .uri(SUPERHEROES_ID_URI, id)
-                .retrieve()
-                .bodyToMono(Superhero.class)
-                .block();
-    }
+  public Superhero getSuperheroBlocking(long id) {
+    return webClient
+        .get()
+        .uri(SUPERHEROES_ID_URI, id)
+        .retrieve()
+        .bodyToMono(Superhero.class)
+        .block();
+  }
 
-    public void consume(long id) {
-        webClient.get()
-                .uri(SUPERHEROES_ID_URI, id)
-                .retrieve()
-                .bodyToMono(Superhero.class)
-                .subscribe(s -> log.info("superhero: {}", s));
-    }
-
+  public void consume(long id) {
+    webClient
+        .get()
+        .uri(SUPERHEROES_ID_URI, id)
+        .retrieve()
+        .bodyToMono(Superhero.class)
+        .subscribe(s -> log.info("superhero: {}", s));
+  }
 }

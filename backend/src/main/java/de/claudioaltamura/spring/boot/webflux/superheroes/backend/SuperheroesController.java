@@ -11,8 +11,8 @@ import reactor.core.publisher.Mono;
 @RestController
 public class SuperheroesController {
 
-    @GetMapping("/superheroes/{id}")
-    public Mono<Superhero> getSuperhero(@PathVariable("id") long id) {
-        return Mono.just(new Superhero(id, randomAlphabetic(6)));
-    }
+  @GetMapping("/superheroes/{id}")
+  public Mono<Superhero> getSuperhero(@PathVariable("id") long id) {
+    return Mono.just(new Superhero(id, randomAlphabetic(6)));
+  }
 }

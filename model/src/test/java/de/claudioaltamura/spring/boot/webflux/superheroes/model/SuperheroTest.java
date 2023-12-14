@@ -1,29 +1,30 @@
 package de.claudioaltamura.spring.boot.webflux.superheroes.model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 class SuperheroTest {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
-    @Test
-    void testSerialize() throws JsonProcessingException {
-        var superhero = new Superhero(1L, "Superhero");
+  private final ObjectMapper objectMapper = new ObjectMapper();
 
-        var result = objectMapper.writeValueAsString(superhero);
+  @Test
+  void testSerialize() throws JsonProcessingException {
+    var superhero = new Superhero(1L, "Superhero");
 
-        assertEquals("{\"id\":1,\"name\":\"Superhero\"}", result);
-    }
+    var result = objectMapper.writeValueAsString(superhero);
 
-    @Test
-    void testDeserialize() throws JsonProcessingException {
-        var superheroAsJson = "{\"id\":1,\"name\":\"Superhero\"}";
+    assertEquals("{\"id\":1,\"name\":\"Superhero\"}", result);
+  }
 
-        var superhero = objectMapper.readValue(superheroAsJson, Superhero.class);
+  @Test
+  void testDeserialize() throws JsonProcessingException {
+    var superheroAsJson = "{\"id\":1,\"name\":\"Superhero\"}";
 
-        assertEquals(new Superhero(1L, "Superhero"), superhero);
-    }
+    var superhero = objectMapper.readValue(superheroAsJson, Superhero.class);
+
+    assertEquals(new Superhero(1L, "Superhero"), superhero);
+  }
 }

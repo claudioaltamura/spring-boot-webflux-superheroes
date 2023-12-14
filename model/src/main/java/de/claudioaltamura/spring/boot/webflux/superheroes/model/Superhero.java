@@ -2,7 +2,6 @@ package de.claudioaltamura.spring.boot.webflux.superheroes.model;
 
 import lombok.*;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -10,6 +9,6 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class Superhero {
-    private Long id;
-    private String name;
+  private Long id;
+  private String name;
 }

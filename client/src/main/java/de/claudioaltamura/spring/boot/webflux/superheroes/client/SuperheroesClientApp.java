@@ -11,17 +11,14 @@ import org.springframework.context.annotation.Bean;
 @Slf4j
 public class SuperheroesClientApp {
 
+  @Autowired private SuperheroesClient superheroesClient;
 
-	@Autowired private SuperheroesClient superheroesClient;
+  public static void main(String[] args) {
+    SpringApplication.run(SuperheroesClientApp.class, args);
+  }
 
-	public static void main(String[] args) {
-		SpringApplication.run(SuperheroesClientApp.class, args);
-	}
-
-	@Bean
-	public ApplicationRunner applicationRunner(SuperheroesClient superheroesClientApp) {
-		return args ->
-			log.info("superhero: {}", superheroesClient.getSuperheroBlocking(1));
-	}
-
+  @Bean
+  public ApplicationRunner applicationRunner(SuperheroesClient superheroesClientApp) {
+    return args -> log.info("superhero: {}", superheroesClient.getSuperheroBlocking(1));
+  }
 }
