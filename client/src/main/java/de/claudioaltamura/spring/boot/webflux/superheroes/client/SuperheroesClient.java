@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
@@ -24,12 +25,11 @@ public class SuperheroesClient {
         .block();
   }
 
-  public void consume(long id) {
-    webClient
+  public Mono<Superhero> consume(long id) {
+    return webClient
         .get()
         .uri(SUPERHEROES_ID_URI, id)
         .retrieve()
-        .bodyToMono(Superhero.class)
-        .subscribe(s -> log.info("superhero: {}", s));
+        .bodyToMono(Superhero.class);
   }
 }
