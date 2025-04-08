@@ -27,7 +27,7 @@ public class SuperheroesClientTest {
   }
 
   @Test
-  public void testGetSuperheroById() throws InterruptedException {
+  void testGetSuperheroById() throws InterruptedException {
     this.cut =
         new SuperheroesClient(
             WebClient.builder().baseUrl(mockWebServer.url("/").toString()).build());
