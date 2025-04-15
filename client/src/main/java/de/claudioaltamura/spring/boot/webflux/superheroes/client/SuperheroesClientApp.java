@@ -22,6 +22,6 @@ public class SuperheroesClientApp {
 
   @Bean
   public ApplicationRunner applicationRunner(SuperheroesClient superheroesClientApp) {
-    return args -> superheroesClient.consume(1).subscribe(s -> log.info("superhero: {}", s));
+    return args -> superheroesClient.getSuperheroes().subscribe(s -> log.info("superhero: {}", s));
   }
 }

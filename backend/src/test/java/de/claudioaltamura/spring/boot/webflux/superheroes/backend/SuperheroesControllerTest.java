@@ -26,4 +26,23 @@ class SuperheroesControllerTest {
         .expectBody(Superhero.class)
         .value(superhero -> assertThat(superhero.getName()).isNotNull());
   }
+
+  @Test
+  void shouldReturnSuperheroes() {
+    webTestClient
+        .get()
+        .uri("/superheroes")
+        .accept(MediaType.APPLICATION_JSON)
+        .exchange()
+        .expectStatus()
+        .isOk()
+        .expectBodyList(Superhero.class)
+        .hasSize(10)
+        .consumeWith(
+            response -> {
+              var superheroes = response.getResponseBody();
+              assertThat(superheroes).isNotNull();
+              System.out.println(superheroes);
+            });
+  }
 }
