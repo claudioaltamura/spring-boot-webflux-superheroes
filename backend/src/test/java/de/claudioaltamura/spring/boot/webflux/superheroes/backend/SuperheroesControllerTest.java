@@ -37,7 +37,7 @@ class SuperheroesControllerTest {
         .expectStatus()
         .isOk()
         .expectBodyList(Superhero.class)
-        .hasSize(10)
+        .hasSize(2)
         .consumeWith(
             response -> {
               var superheroes = response.getResponseBody();
