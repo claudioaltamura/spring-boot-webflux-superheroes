@@ -9,8 +9,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class SuperheroesControllerTest {
 
@@ -37,7 +36,29 @@ class SuperheroesControllerTest {
                 .expectStatus()
                 .isOk()
                 .expectBody(Superhero.class)
-                .value(superhero -> assertThat(superhero.getName()).isNotNull());
+                .value(superhero -> assertThat(superhero.getId()).isEqualTo(2L));
+
+        verify(superheroesService, times(1)).getSuperhero(2L);
+    }
+
+    @Test
+    void shouldReturnSuperheroByName() {
+        when(superheroesService.getSuperheroByName("Spiderman"))
+                .thenReturn(Mono.just(new Superhero(2L, "Spiderman")));
+
+        webTestClient
+                .get()
+                .uri(uriBuilder -> uriBuilder.path("/superheroes/search")
+                        .queryParam("name", "Spiderman")
+                        .build())
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBody(Superhero.class)
+                .value(superhero -> assertThat(superhero.getName()).isEqualTo("Spiderman"));
+
+        verify(superheroesService, times(1)).getSuperheroByName("Spiderman");
     }
 
     @Test
@@ -58,7 +79,6 @@ class SuperheroesControllerTest {
                         response -> {
                             var superheroes = response.getResponseBody();
                             assertThat(superheroes).isNotNull();
-                            System.out.println(superheroes);
                         });
     }
 }

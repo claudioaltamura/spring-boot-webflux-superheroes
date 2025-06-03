@@ -50,4 +50,12 @@ public class SuperheroesService {
                 .take(this.superheroes.size());
     }
 
+    public Mono<Superhero> getSuperheroByName(String name) {
+        return Mono.justOrEmpty(
+                this.superheroes.values()
+                        .stream()
+                        .filter(superhero -> superhero.getName().equalsIgnoreCase(name))
+                        .findFirst()
+            );
+    }
 }

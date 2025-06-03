@@ -3,6 +3,7 @@ package de.claudioaltamura.spring.boot.webflux.superheroes.backend;
 import de.claudioaltamura.spring.boot.webflux.superheroes.model.Superhero;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -19,6 +20,11 @@ public class SuperheroesController {
   @GetMapping("/superheroes/{id}")
   public Mono<Superhero> getSuperhero(@PathVariable("id") long id) {
     return superheroesService.getSuperhero(id);
+  }
+
+  @GetMapping("/superheroes/search")
+  public Mono<Superhero> getSuperheroByName(@RequestParam("name") String name) {
+    return superheroesService.getSuperheroByName(name);
   }
 
   @GetMapping("/superheroes")
