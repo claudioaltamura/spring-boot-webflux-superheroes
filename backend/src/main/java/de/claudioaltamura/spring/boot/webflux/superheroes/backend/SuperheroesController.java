@@ -1,12 +1,12 @@
 package de.claudioaltamura.spring.boot.webflux.superheroes.backend;
 
 import de.claudioaltamura.spring.boot.webflux.superheroes.model.Superhero;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.net.URI;
 
 @RestController
 public class SuperheroesController {
@@ -30,6 +30,12 @@ public class SuperheroesController {
   @GetMapping("/superheroes")
   public Flux<Superhero> getSuperheroes() {
     return superheroesService.getSuperheroes();
+  }
+
+  @PostMapping("/superheroes")
+  public Mono<ResponseEntity<Long>> add(Superhero superhero) {
+    return superheroesService.addSuperhero((superhero))
+            .map(id -> ResponseEntity.created(URI.create("/superheroes/" + id)).build());
   }
 
 }

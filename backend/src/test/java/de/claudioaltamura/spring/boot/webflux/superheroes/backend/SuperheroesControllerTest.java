@@ -81,4 +81,24 @@ class SuperheroesControllerTest {
                             assertThat(superheroes).isNotNull();
                         });
     }
+
+    @Test
+    void shouldAddASuperhero() {
+        Superhero newSuperhero = new Superhero(null, "Ironman");
+        when(superheroesService.addSuperhero(any(Superhero.class)))
+                .thenReturn(Mono.just(3L));
+
+        webTestClient
+                .post()
+                .uri("/superheroes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue(newSuperhero)
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus()
+                .isCreated()
+                .expectHeader().location("/superheroes/3");
+
+        verify(superheroesService, times(1)).addSuperhero(any(Superhero.class));
+    }
 }
