@@ -3,10 +3,9 @@ package de.claudioaltamura.spring.boot.webflux.superheroes.backend;
 import de.claudioaltamura.spring.boot.webflux.superheroes.model.Superhero;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.net.URI;
 
 @RestController
 public class SuperheroesController {
@@ -33,9 +32,11 @@ public class SuperheroesController {
   }
 
   @PostMapping("/superheroes")
-  public Mono<ResponseEntity<Long>> add(Superhero superhero) {
-    return superheroesService.addSuperhero((superhero))
-            .map(id -> ResponseEntity.created(URI.create("/superheroes/" + id)).build());
+  public Mono<ResponseEntity<Long>> add(@RequestBody Superhero superhero, UriComponentsBuilder uriBuilder) {
+    return superheroesService.addSuperhero(superhero)
+            .map(id -> ResponseEntity.created(
+                    uriBuilder.path("/superheroes/{id}").buildAndExpand(id).toUri()
+            ).build());
   }
 
 }
