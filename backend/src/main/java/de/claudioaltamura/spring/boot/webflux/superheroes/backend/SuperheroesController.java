@@ -39,4 +39,10 @@ public class SuperheroesController {
             ).build());
   }
 
+  @DeleteMapping("/superheroes/{id}")
+  public Mono<ResponseEntity<Void>> delete(@PathVariable("id") long id) {
+    return superheroesService.deleteSuperhero(id)
+            .thenReturn(ResponseEntity.noContent().build());
+  }
+
 }

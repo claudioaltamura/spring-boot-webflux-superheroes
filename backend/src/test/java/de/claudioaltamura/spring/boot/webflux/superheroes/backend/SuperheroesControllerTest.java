@@ -39,6 +39,7 @@ class SuperheroesControllerTest {
                 .value(superhero -> assertThat(superhero.getId()).isEqualTo(2L));
 
         verify(superheroesService, times(1)).getSuperhero(2L);
+        verifyNoMoreInteractions(superheroesService);
     }
 
     @Test
@@ -59,6 +60,7 @@ class SuperheroesControllerTest {
                 .value(superhero -> assertThat(superhero.getName()).isEqualTo("Spiderman"));
 
         verify(superheroesService, times(1)).getSuperheroByName("Spiderman");
+        verifyNoMoreInteractions(superheroesService);
     }
 
     @Test
@@ -80,6 +82,9 @@ class SuperheroesControllerTest {
                             var superheroes = response.getResponseBody();
                             assertThat(superheroes).isNotNull();
                         });
+
+        verify(superheroesService, times(1)).getSuperheroes();
+        verifyNoMoreInteractions(superheroesService);
     }
 
     @Test
@@ -100,5 +105,23 @@ class SuperheroesControllerTest {
                 .expectHeader().location("/superheroes/3");
 
         verify(superheroesService, times(1)).addSuperhero(any(Superhero.class));
+        verifyNoMoreInteractions(superheroesService);
+    }
+
+    @Test
+    void shouldDeleteASuperhero() {
+        when(superheroesService.deleteSuperhero(2L))
+                .thenReturn(Mono.empty());
+
+        webTestClient
+                .delete()
+                .uri(uriBuilder -> uriBuilder.path("/superheroes/{id}").build(2))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus()
+                .isNoContent();
+
+        verify(superheroesService, times(1)).deleteSuperhero(2L);
+        verifyNoMoreInteractions(superheroesService);
     }
 }
