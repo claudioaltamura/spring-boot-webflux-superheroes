@@ -43,6 +43,23 @@ class SuperheroesControllerTest {
     }
 
     @Test
+    void shouldNotReturnSuperhero() {
+        when(superheroesService.getSuperhero(2L))
+                .thenReturn(Mono.empty());
+
+        webTestClient
+                .get()
+                .uri(uriBuilder -> uriBuilder.path("/superheroes/{id}").build(2))
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus()
+                .isNotFound();
+
+        verify(superheroesService, times(1)).getSuperhero(2L);
+        verifyNoMoreInteractions(superheroesService);
+    }
+
+    @Test
     void shouldReturnSuperheroByName() {
         when(superheroesService.getSuperheroByName("Spiderman"))
                 .thenReturn(Mono.just(new Superhero(2L, "Spiderman")));
@@ -62,6 +79,28 @@ class SuperheroesControllerTest {
         verify(superheroesService, times(1)).getSuperheroByName("Spiderman");
         verifyNoMoreInteractions(superheroesService);
     }
+
+    @Test
+    void shouldReturnEmtpySuperheroList() {
+        when(superheroesService.getSuperheroByName("Spiderman"))
+                .thenReturn(Mono.empty());
+
+        webTestClient
+                .get()
+                .uri(uriBuilder -> uriBuilder.path("/superheroes/search")
+                        .queryParam("name", "Spiderman")
+                        .build())
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus()
+                .isOk()
+                .expectBodyList(Superhero.class)
+                .hasSize(0);
+
+        verify(superheroesService, times(1)).getSuperheroByName("Spiderman");
+        verifyNoMoreInteractions(superheroesService);
+    }
+
 
     @Test
     void shouldReturnSuperheroes() {

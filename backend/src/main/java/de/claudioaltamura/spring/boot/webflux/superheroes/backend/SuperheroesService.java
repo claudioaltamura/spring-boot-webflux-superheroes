@@ -24,8 +24,7 @@ public class SuperheroesService {
     }
 
     public Mono<Superhero> getSuperhero(Long id) {
-        return Mono.justOrEmpty(this.superheroes.get(id))
-                .switchIfEmpty(Mono.error(new RuntimeException("Superhero not found")));
+        return Mono.justOrEmpty(this.superheroes.get(id));
     }
 
     public Mono<Long> addSuperhero(Superhero superhero) {

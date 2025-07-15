@@ -1,6 +1,7 @@
 package de.claudioaltamura.spring.boot.webflux.superheroes.backend;
 
 import de.claudioaltamura.spring.boot.webflux.superheroes.model.Superhero;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -17,8 +18,10 @@ public class SuperheroesController {
   }
 
   @GetMapping("/superheroes/{id}")
-  public Mono<Superhero> getSuperhero(@PathVariable("id") long id) {
-    return superheroesService.getSuperhero(id);
+  public Mono<ResponseEntity<Superhero>> getSuperhero(@PathVariable("id") long id) {
+    return superheroesService.getSuperhero(id)
+            .map(ResponseEntity::ok)
+            .defaultIfEmpty(ResponseEntity.notFound().build());
   }
 
   @GetMapping("/superheroes/search")
@@ -32,7 +35,7 @@ public class SuperheroesController {
   }
 
   @PostMapping("/superheroes")
-  public Mono<ResponseEntity<Long>> add(@RequestBody Superhero superhero, UriComponentsBuilder uriBuilder) {
+  public Mono<ResponseEntity<Long>> add(@Valid @RequestBody Superhero superhero, UriComponentsBuilder uriBuilder) {
     return superheroesService.addSuperhero(superhero)
             .map(id -> ResponseEntity.created(
                     uriBuilder.path("/superheroes/{id}").buildAndExpand(id).toUri()
