@@ -21,6 +21,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
         <lombok.version>1.18.30</lombok.version>
+        <jakarta.validation.version>3.1.1</jakarta.validation.version>
         <maven.surefire.plugin>3.0.0-M8</maven.surefire.plugin>
         <maven.dependency.plugin>3.5.0</maven.dependency.plugin>
         <versions-maven-plugin>2.16.2</versions-maven-plugin>
@@ -39,6 +40,11 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.validation</groupId>
+                <artifactId>jakarta.validation-api</artifactId>
+                <version>${jakarta.validation.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

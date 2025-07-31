@@ -148,6 +148,21 @@ class SuperheroesControllerTest {
     }
 
     @Test
+    void shouldAddInvalidASuperhero() {
+        webTestClient
+                .post()
+                .uri("/superheroes")
+                .contentType(MediaType.APPLICATION_JSON)
+                .bodyValue("{\"description\":\"Description\"}")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus()
+                .isBadRequest();
+
+        verifyNoMoreInteractions(superheroesService);
+    }
+
+    @Test
     void shouldDeleteASuperhero() {
         when(superheroesService.deleteSuperhero(2L))
                 .thenReturn(Mono.empty());
