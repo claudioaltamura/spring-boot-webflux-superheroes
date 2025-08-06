@@ -24,7 +24,7 @@ class SuperheroesControllerTest {
     }
 
     @Test
-    void shouldReturnSuperhero() {
+    void getSuperhero() {
         when(superheroesService.getSuperhero(2L))
                 .thenReturn(Mono.just(new Superhero(2L, "Spiderman")));
 
@@ -43,7 +43,7 @@ class SuperheroesControllerTest {
     }
 
     @Test
-    void shouldNotReturnSuperhero() {
+    void getSuperheroNotFound() {
         when(superheroesService.getSuperhero(2L))
                 .thenReturn(Mono.empty());
 
@@ -60,7 +60,7 @@ class SuperheroesControllerTest {
     }
 
     @Test
-    void shouldReturnSuperheroByName() {
+    void getSuperheroByName() {
         when(superheroesService.getSuperheroByName("Spiderman"))
                 .thenReturn(Mono.just(new Superhero(2L, "Spiderman")));
 
@@ -81,7 +81,7 @@ class SuperheroesControllerTest {
     }
 
     @Test
-    void shouldReturnEmtpySuperheroList() {
+    void getEmptySuperheroList() {
         when(superheroesService.getSuperheroByName("Spiderman"))
                 .thenReturn(Mono.empty());
 
@@ -101,9 +101,8 @@ class SuperheroesControllerTest {
         verifyNoMoreInteractions(superheroesService);
     }
 
-
     @Test
-    void shouldReturnSuperheroes() {
+    void getSuperheroes() {
         when(superheroesService.getSuperheroes())
                 .thenReturn(Flux.just(new Superhero(1L, "Hulk"), new Superhero(2L, "Spiderman")));
 
@@ -127,7 +126,7 @@ class SuperheroesControllerTest {
     }
 
     @Test
-    void shouldAddASuperhero() {
+    void addSuperhero() {
         Superhero newSuperhero = new Superhero(null, "Ironman");
         when(superheroesService.addSuperhero(any(Superhero.class)))
                 .thenReturn(Mono.just(3L));
@@ -148,7 +147,7 @@ class SuperheroesControllerTest {
     }
 
     @Test
-    void shouldAddInvalidASuperhero() {
+    void addInvalidASuperhero() {
         webTestClient
                 .post()
                 .uri("/superheroes")
@@ -163,7 +162,7 @@ class SuperheroesControllerTest {
     }
 
     @Test
-    void shouldDeleteASuperhero() {
+    void deleteSuperhero() {
         when(superheroesService.deleteSuperhero(2L))
                 .thenReturn(Mono.empty());
 
