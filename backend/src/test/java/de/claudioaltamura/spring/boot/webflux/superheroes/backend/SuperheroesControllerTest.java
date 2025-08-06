@@ -177,4 +177,22 @@ class SuperheroesControllerTest {
         verify(superheroesService, times(1)).deleteSuperhero(2L);
         verifyNoMoreInteractions(superheroesService);
     }
+
+    @Test
+    void generateError() {
+        when(superheroesService.generateError())
+                .thenReturn(Mono.error(new ApplicationException("some kind of error from somewhere")));
+
+        webTestClient
+                .get()
+                .uri("/error")
+                .accept(MediaType.APPLICATION_JSON)
+                .exchange()
+                .expectStatus()
+                .is5xxServerError();
+
+
+        verify(superheroesService).generateError();
+        verifyNoMoreInteractions(superheroesService);
+    }
 }

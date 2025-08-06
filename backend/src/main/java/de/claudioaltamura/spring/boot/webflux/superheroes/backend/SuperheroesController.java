@@ -2,6 +2,7 @@ package de.claudioaltamura.spring.boot.webflux.superheroes.backend;
 
 import de.claudioaltamura.spring.boot.webflux.superheroes.model.Superhero;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -46,6 +47,12 @@ public class SuperheroesController {
   public Mono<ResponseEntity<Void>> delete(@PathVariable("id") long id) {
     return superheroesService.deleteSuperhero(id)
             .thenReturn(ResponseEntity.noContent().build());
+  }
+
+  @GetMapping("/error")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public Mono<Void> generateError() {
+    return superheroesService.generateError();
   }
 
 }

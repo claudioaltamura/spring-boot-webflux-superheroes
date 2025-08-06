@@ -57,4 +57,8 @@ public class SuperheroesService {
                         .findFirst()
             );
     }
+
+    public Mono<Void> generateError() {
+        return Mono.error(new ApplicationException("some kind of error from somewhere"));
+    }
 }
