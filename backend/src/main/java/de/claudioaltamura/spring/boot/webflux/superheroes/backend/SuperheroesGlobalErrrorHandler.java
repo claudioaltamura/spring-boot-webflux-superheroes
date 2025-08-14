@@ -7,10 +7,11 @@ import reactor.core.publisher.Mono;
 
 public class SuperheroesGlobalErrrorHandler {
 
-    @ExceptionHandler(ApplicationException.class)
-    public Mono<ResponseEntity<ApplicationError>> handleCustomRuntimeException(ApplicationException cre) {
-        return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApplicationError(500, cre.getMessage())));
-    }
-
+  @ExceptionHandler(ApplicationException.class)
+  public Mono<ResponseEntity<ApplicationError>> handleCustomRuntimeException(
+      ApplicationException cre) {
+    return Mono.just(
+        ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .body(new ApplicationError(500, cre.getMessage())));
+  }
 }
