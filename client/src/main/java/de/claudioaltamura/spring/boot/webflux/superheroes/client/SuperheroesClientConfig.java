@@ -4,7 +4,6 @@ import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
 import java.util.List;
-import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +21,11 @@ import reactor.netty.http.client.HttpClient;
 public class SuperheroesClientConfig {
   @Value("${superHeroesServerUrl}")
   private String superHeroesServerUrl;
+
+  @Bean
+  public WebClient.Builder webClientBuilder() {
+    return WebClient.builder();
+  }
 
   @Bean
   WebClient webClient(WebClient.Builder builder) {
@@ -49,25 +53,21 @@ public class SuperheroesClientConfig {
     return (clientRequest, next) -> {
       log.info("Request: {} {}", clientRequest.method(), clientRequest.url());
       log.info("--- Http Headers: ---");
-      clientRequest.headers().entrySet().forEach(this::logHeader);
+      clientRequest.headers().forEach(this::logHeader);
       return next.exchange(clientRequest);
     };
+  }
+
+  private void logHeader(String key, List<String> value) {
+    log.info("{}={}", key, value);
   }
 
   private ExchangeFilterFunction logResponse() {
     return ExchangeFilterFunction.ofResponseProcessor(
         clientResponse -> {
           log.info("Response: {}", clientResponse.statusCode());
-          clientResponse.headers().asHttpHeaders().entrySet().forEach(this::logResponse);
           return Mono.just(clientResponse);
         });
   }
 
-  private void logHeader(Map.Entry<String, List<String>> entry) {
-    log.info("{}={}", entry.getKey(), entry.getValue());
-  }
-
-  private void logResponse(Map.Entry<String, List<String>> entry) {
-    log.info("{}={}", entry.getKey(), entry.getValue());
-  }
 }

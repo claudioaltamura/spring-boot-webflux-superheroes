@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.5</version>
+        <version>4.0.0-M2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -20,12 +20,12 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
-        <lombok.version>1.18.30</lombok.version>
+        <lombok.version>1.18.38</lombok.version>
         <jakarta.validation.version>3.1.1</jakarta.validation.version>
-        <maven.surefire.plugin>3.0.0-M8</maven.surefire.plugin>
-        <maven.dependency.plugin>3.5.0</maven.dependency.plugin>
-        <versions-maven-plugin>2.16.2</versions-maven-plugin>
-        <spotless.version>2.38.0</spotless.version>
+        <maven.surefire.plugin>3.5.3</maven.surefire.plugin>
+        <maven.dependency.plugin>3.8.1</maven.dependency.plugin>
+        <versions-maven-plugin>2.18.0</versions-maven-plugin>
+        <spotless.version>2.46.1</spotless.version>
     </properties>
 
     <modules>
