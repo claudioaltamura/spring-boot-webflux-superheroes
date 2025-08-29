@@ -11,6 +11,7 @@ import lombok.*;
 @ToString
 public class Superhero {
   private Long id;
+
   @NotEmpty(message = "Name cannot be empty")
   private String name;
 }

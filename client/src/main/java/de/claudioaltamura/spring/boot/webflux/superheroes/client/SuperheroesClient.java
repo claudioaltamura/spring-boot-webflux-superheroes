@@ -27,19 +27,10 @@ public class SuperheroesClient {
   }
 
   public Mono<Superhero> getSuperhero(long id) {
-    return webClient
-        .get()
-        .uri(SUPERHEROES_ID_URI, id)
-        .retrieve()
-        .bodyToMono(Superhero.class);
+    return webClient.get().uri(SUPERHEROES_ID_URI, id).retrieve().bodyToMono(Superhero.class);
   }
 
   public Flux<Superhero> getSuperheroes() {
-    return webClient
-        .get()
-        .uri("/superheroes")
-        .retrieve()
-        .bodyToFlux(Superhero.class);
+    return webClient.get().uri("/superheroes").retrieve().bodyToFlux(Superhero.class);
   }
-
 }

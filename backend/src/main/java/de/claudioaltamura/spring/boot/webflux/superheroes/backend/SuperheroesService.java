@@ -27,12 +27,14 @@ public class SuperheroesService {
   }
 
   public Mono<Superhero> addSuperhero(Superhero superhero) {
-   Long id = Math.abs(random.nextLong() % Long.MAX_VALUE) + 1;
-    return Mono.fromSupplier(() -> {
-      superhero.setId(id);
-      this.superheroes.put(id, superhero);
-        return superhero;
-    }).thenReturn(superhero);
+    Long id = Math.abs(random.nextLong() % Long.MAX_VALUE) + 1;
+    return Mono.fromSupplier(
+            () -> {
+              superhero.setId(id);
+              this.superheroes.put(id, superhero);
+              return superhero;
+            })
+        .thenReturn(superhero);
   }
 
   public Mono<Void> deleteSuperhero(Long id) {
