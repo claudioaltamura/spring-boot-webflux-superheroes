@@ -43,9 +43,9 @@ public class SuperheroesController {
     return superheroesService
         .addSuperhero(superhero)
         .map(
-            id ->
+            hero ->
                 ResponseEntity.created(
-                        uriBuilder.path("/superheroes/{id}").buildAndExpand(id).toUri())
+                        uriBuilder.path("/superheroes/{id}").buildAndExpand(hero.getId()).toUri())
                     .build());
   }
 

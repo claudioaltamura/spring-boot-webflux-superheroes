@@ -136,7 +136,8 @@ class SuperheroesControllerTest {
   @Test
   void addSuperhero() {
     Superhero newSuperhero = new Superhero(null, "Ironman");
-    when(superheroesService.addSuperhero(any(Superhero.class))).thenReturn(Mono.just(3L));
+    newSuperhero.setId(3L);
+    when(superheroesService.addSuperhero(any(Superhero.class))).thenReturn(Mono.just(newSuperhero));
 
     webTestClient
         .post()
